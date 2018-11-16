@@ -5,10 +5,10 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start:remote": "redoc-cli serve https://github.com/haohouming/youhua-backend/apidoc.json --title 油画api文档 --watch",
+        "start:remote": "redoc-cli serve https://raw.githubusercontent.com/haohouming/youhua-backend/master/apidoc.json --title 油画api文档 --watch",
         "start": "redoc-cli serve apidoc.json --title 油画api文档 --watch",
         "build": "redoc-cli bundle apidoc.json -o index.html --title 油画api文档",
-        "build:remote": "redoc-cli bundle https://github.com/haohouming/youhua-backend/apidoc.json -o index.html --title 油画api文档"
+        "build:remote": "redoc-cli bundle https://raw.githubusercontent.com/haohouming/youhua-backend/master/apidoc.json -o index.html --title 油画api文档"
     },
     "author": "R.I.P",
     "license": "ISC",
