@@ -8,14 +8,30 @@
     "paths": {
         "\/api\/banners": {
             "get": {
+                "summary": "\u67e5\u8be2\u8f6e\u6362\u56fe\u6570\u636e\u96c6",
+                "description": "\u8f6e\u6362\u56fe\u5217\u8868",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "The collection page number"
+                    }
+                ],
                 "tags": [
-                    "Banner"
+                    "轮换图"
                 ],
                 "operationId": "getBannerCollection",
                 "produces": [
                     "application\/json"
                 ],
-                "summary": "Retrieves the collection of Banner resources.",
                 "responses": {
                     "200": {
                         "description": "Banner collection response",
@@ -26,8 +42,20 @@
                             }
                         }
                     }
-                },
+                }
+            }
+        },
+        "\/api\/classifies": {
+            "get": {
+                "summary": "\u67e5\u8be2\u5206\u7c7b\u6570\u636e\u96c6",
+                "description": "\u5206\u7c7b\u5217\u8868",
                 "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
                     {
                         "name": "page",
                         "in": "query",
@@ -35,64 +63,52 @@
                         "type": "integer",
                         "description": "The collection page number"
                     }
-                ]
-            }
-        },
-        "\/api\/classifies": {
-            "get": {
+                ],
                 "tags": [
-                    "classify"
+                    "分类"
                 ],
                 "operationId": "getClassifyCollection",
                 "produces": [
                     "application\/json"
                 ],
-                "summary": "Retrieves the collection of classify resources.",
                 "responses": {
                     "200": {
-                        "description": "classify collection response",
+                        "description": "Classify collection response",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/classify-classify:read"
+                                "$ref": "#\/definitions\/Classify-classify:read"
                             }
                         }
                     }
-                },
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "type": "integer",
-                        "description": "The collection page number"
-                    }
-                ]
+                }
             }
         },
         "\/api\/classifies\/{id}": {
             "get": {
-                "tags": [
-                    "classify"
-                ],
-                "operationId": "getClassifyItem",
-                "produces": [
-                    "application\/json"
-                ],
-                "summary": "Retrieves a classify resource.",
+                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u5206\u7c7b\u6570\u636e",
+                "description": "\u5206\u7c7b\u8be6\u60c5",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "type": "string"
+                        "type": "integer",
+                        "description": "\u5206\u7c7bid"
                     }
+                ],
+                "tags": [
+                    "分类"
+                ],
+                "operationId": "getClassifyItem",
+                "produces": [
+                    "application\/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "classify resource response",
+                        "description": "Classify resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/classify-classify:read"
+                            "$ref": "#\/definitions\/Classify-classify:read"
                         }
                     },
                     "404": {
@@ -103,6 +119,7 @@
         },
         "\/api\/classifies\/{id}\/goods": {
             "get": {
+                "summary": "\u67e5\u8be2\u5bf9\u5e94\u5206\u7c7bid\u7684\u5546\u54c1\u6570\u636e\u96c6",
                 "description": "\u5206\u7c7bid\u4e0b\u7684\u5546\u54c1\u5217\u8868",
                 "parameters": [
                     {
@@ -133,19 +150,24 @@
                     {
                         "name": "page",
                         "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
                         "required": false,
                         "type": "integer",
                         "description": "The collection page number"
                     }
                 ],
                 "tags": [
-                    "Goods"
+                    "商品"
                 ],
                 "operationId": "api_classifies_goods_get_subresourceGoodsCollection",
                 "produces": [
                     "application\/json"
                 ],
-                "summary": "Retrieves the collection of Goods resources.",
                 "responses": {
                     "200": {
                         "description": "Goods collection response",
@@ -161,6 +183,7 @@
         },
         "\/api\/goods": {
             "get": {
+                "summary": "\u67e5\u8be2\u5546\u54c1\u6570\u636e\u96c6",
                 "description": "\u5546\u54c1\u5217\u8868",
                 "parameters": [
                     {
@@ -196,19 +219,24 @@
                     {
                         "name": "page",
                         "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
                         "required": false,
                         "type": "integer",
                         "description": "The collection page number"
                     }
                 ],
                 "tags": [
-                    "Goods"
+                    "商品"
                 ],
                 "operationId": "getGoodsCollection",
                 "produces": [
                     "application\/json"
                 ],
-                "summary": "Retrieves the collection of Goods resources.",
                 "responses": {
                     "200": {
                         "description": "Goods collection response",
@@ -224,22 +252,23 @@
         },
         "\/api\/goods\/{id}": {
             "get": {
+                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u5546\u54c1\u6570\u636e",
                 "description": "\u5546\u54c1\u8be6\u60c5",
-                "tags": [
-                    "Goods"
-                ],
-                "operationId": "getGoodsItem",
-                "produces": [
-                    "application\/json"
-                ],
-                "summary": "Retrieves a Goods resource.",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "type": "string"
+                        "type": "integer",
+                        "description": "\u5546\u54c1id"
                     }
+                ],
+                "tags": [
+                    "商品"
+                ],
+                "operationId": "getGoodsItem",
+                "produces": [
+                    "application\/json"
                 ],
                 "responses": {
                     "200": {
@@ -258,7 +287,7 @@
     "definitions": {
         "Banner-banner:read": {
             "type": "object",
-            "description": "",
+            "description": "\u8f6e\u6362\u56fe",
             "properties": {
                 "id": {
                     "description": "\u7f16\u53f7",
@@ -284,6 +313,70 @@
                 "goods": {
                     "description": "\u5546\u54c1",
                     "$ref": "#\/definitions\/Goods-banner:read"
+                }
+            }
+        },
+        "Classify-classify:read": {
+            "type": "object",
+            "description": "\u5206\u7c7b",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u540d\u79f0",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
+                },
+                "goods": {
+                    "description": "\u5546\u54c1\u5217\u8868",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Classify-goods:item:read": {
+            "type": "object",
+            "description": "\u5206\u7c7b",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u540d\u79f0",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
+                }
+            }
+        },
+        "Classify-goods:read": {
+            "type": "object",
+            "description": "\u5206\u7c7b",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u540d\u79f0",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
                 }
             }
         },
@@ -323,7 +416,7 @@
                     "description": "\u5206\u7c7b",
                     "type": "array",
                     "items": {
-                        "$ref": "#\/definitions\/classify-goods:item:read"
+                        "$ref": "#\/definitions\/Classify-goods:item:read"
                     }
                 },
                 "describes": {
@@ -384,7 +477,7 @@
                     "description": "\u5206\u7c7b",
                     "type": "array",
                     "items": {
-                        "$ref": "#\/definitions\/classify-goods:read"
+                        "$ref": "#\/definitions\/Classify-goods:read"
                     }
                 },
                 "describes": {
@@ -392,91 +485,16 @@
                     "type": "string"
                 },
                 "marketPrice": {
-                    "description": "\u5e02\u573a\u4ef7",
                     "type": "number"
                 },
                 "depositPrice": {
-                    "description": "\u62bc\u91d1\u4ef7",
                     "type": "number"
                 },
                 "longSize": {
-                    "description": "\u957f",
                     "type": "integer"
                 },
                 "wideSize": {
-                    "description": "\u5bbd",
                     "type": "integer"
-                },
-                "pictures": {
-                    "description": "\u8f6e\u6362\u56fe",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "classify-classify:read": {
-            "type": "object",
-            "description": "\u5546\u54c1",
-            "properties": {
-                "id": {
-                    "description": "\u7f16\u53f7",
-                    "readOnly": true,
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "\u540d\u79f0",
-                    "type": "string"
-                },
-                "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
-                    "type": "string"
-                },
-                "goods": {
-                    "description": "\u5546\u54c1\u5217\u8868",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "classify-goods:item:read": {
-            "type": "object",
-            "description": "\u5546\u54c1",
-            "properties": {
-                "id": {
-                    "description": "\u7f16\u53f7",
-                    "readOnly": true,
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "\u540d\u79f0",
-                    "type": "string"
-                },
-                "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
-                    "type": "string"
-                }
-            }
-        },
-        "classify-goods:read": {
-            "type": "object",
-            "description": "\u5546\u54c1",
-            "properties": {
-                "id": {
-                    "description": "\u7f16\u53f7",
-                    "readOnly": true,
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "\u540d\u79f0",
-                    "type": "string"
-                },
-                "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
-                    "type": "string"
                 }
             }
         }
