@@ -2,9 +2,10 @@
 
 ```js
 npm install
+
 // 读该项目下的apidoc.json
 npm start
-k
+
 // 读后端项目下的apidoc.json
 npm run start:remote
 
