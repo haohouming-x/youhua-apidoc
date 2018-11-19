@@ -1,21 +1,21 @@
 {
     "swagger": "2.0",
-    "basePath": "\/",
+    "basePath": "/",
     "info": {
-        "title": "\u6cb9\u753bapi",
-        "version": "0.0.0"
+        "title": "油画api",
+        "version": "1.0.0"
     },
     "paths": {
-        "\/api\/banners": {
+        "/api/banners": {
             "get": {
                 "tags": [
-                    "\u8f6e\u6362\u56fe"
+                    "轮换图"
                 ],
-                "summary": "\u67e5\u8be2\u8f6e\u6362\u56fe\u6570\u636e\u96c6",
-                "description": "\u8f6e\u6362\u56fe\u5217\u8868",
+                "summary": "查询轮换图数据集",
+                "description": "轮换图列表",
                 "operationId": "getBannerCollection",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -23,7 +23,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Banner-banner:read"
+                                "$ref": "#/definitions/Banner-banner--read"
                             }
                         }
                     }
@@ -39,16 +39,16 @@
                 ]
             }
         },
-        "\/api\/classifies": {
+        "/api/classifies": {
             "get": {
                 "tags": [
-                    "\u5206\u7c7b"
+                    "分类"
                 ],
-                "summary": "\u67e5\u8be2\u5206\u7c7b\u6570\u636e\u96c6",
-                "description": "\u5206\u7c7b\u5217\u8868",
+                "summary": "查询分类数据集",
+                "description": "分类列表",
                 "operationId": "getClassifyCollection",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -56,8 +56,22 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Classify-classify:read"
+                                "$ref": "#/definitions/Classify-classify--read"
                             }
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "headers": {
+                            "Set-Cookie": {
+                                "type": "string"
+                            },
+                            "Vary": {
+                                "type": "string"
+                            }
+                        },
+                        "examples": {
+                            "text/html; charset=utf-8": "<html>\n<head>\n<style>body { font-family: 'Tahoma', sans; } h1 { margin-top: 150px; }</style>\n</head>\n<body>\n<center><h1>Oops! This page doesn't exist.</h1><a href=\"/\">Go home</a></center>\n</body>"
                         }
                     }
                 },
@@ -72,31 +86,31 @@
                 ]
             }
         },
-        "\/api\/classifies\/{id}": {
+        "/api/classifies/{id}": {
             "get": {
                 "tags": [
-                    "\u5206\u7c7b"
+                    "分类"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u5206\u7c7b\u6570\u636e",
-                "description": "\u5206\u7c7b\u8be6\u60c5",
+                "summary": "查询对应id的分类数据",
+                "description": "分类详情",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u5206\u7c7bid"
+                        "description": "分类id"
                     }
                 ],
                 "operationId": "getClassifyItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Classify resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Classify-classify:read"
+                            "$ref": "#/definitions/Classify-classify--read"
                         }
                     },
                     "404": {
@@ -105,56 +119,49 @@
                 }
             }
         },
-        "\/api\/classifies\/{id}\/goods": {
+        "/api/classifies/{id}/goods": {
             "get": {
                 "tags": [
-                    "\u5206\u7c7b"
+                    "分类"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94\u5206\u7c7bid\u7684\u5546\u54c1\u6570\u636e\u96c6",
-                "description": "\u5206\u7c7bid\u4e0b\u7684\u5546\u54c1\u5217\u8868",
+                "summary": "查询对应分类id的商品数据集",
+                "description": "分类id下的商品列表",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u5206\u7c7bid"
+                        "description": "分类id"
                     },
                     {
                         "name": "order[id]",
                         "in": "query",
                         "type": "string",
-                        "description": "\u6392\u5e8f\u5b57\u6bb5:\u53c2\u6570\u503c\u53ef\u586b\u4e3a\u5b57\u6bb5created_at\u3001market_price\u7b49"
+                        "description": "排序字段:参数值可填为字段created_at、market_price等"
                     },
                     {
                         "name": "order[name]",
                         "in": "query",
                         "type": "string",
-                        "description": "\u6392\u5e8f\u65b9\u5f0f:\u53c2\u6570\u503cid\u53ef\u586b\u4e3a\u5b57\u6bb5asc\u3001desc"
+                        "description": "排序方式:参数值id可填为字段asc、desc"
                     },
                     {
                         "name": "name",
                         "in": "query",
                         "type": "string",
-                        "description": "\u5546\u54c1\u540d\u79f0\u8fc7\u6ee4:\u4f20\u5165\u5546\u54c1\u540d(\u6a21\u7cca\u67e5\u627e)"
+                        "description": "商品名称过滤:传入商品名(模糊查找)"
                     },
                     {
                         "name": "page",
                         "in": "query",
                         "type": "integer",
-                        "description": "\u5206\u9875\u9875\u6570"
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "type": "integer",
-                        "description": "数据集页数"
+                        "description": "分页页数"
                     }
                 ],
                 "operationId": "api_classifies_goods_get_subresourceGoodsCollection",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -162,26 +169,26 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Goods-goods:read"
+                                "$ref": "#/definitions/Goods-goods--read"
                             }
                         }
                     }
                 }
             }
         },
-        "\/api\/consumers": {
+        "/api/consumers": {
             "post": {
                 "tags": [
-                    "\u7528\u6237"
+                    "用户"
                 ],
-                "summary": "\u521b\u5efa\u65b0\u7528\u6237",
-                "description": "\u521b\u5efa\u7528\u6237",
+                "summary": "创建新用户",
+                "description": "创建用户",
                 "operationId": "postConsumerCollection",
                 "consumes": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -189,7 +196,7 @@
                         "in": "body",
                         "description": "The new Consumer resource",
                         "schema": {
-                            "$ref": "#\/definitions\/Consumer-consumer:item:write"
+                            "$ref": "#/definitions/Consumer-consumer_item--write"
                         }
                     }
                 ],
@@ -197,7 +204,7 @@
                     "201": {
                         "description": "Consumer resource created",
                         "schema": {
-                            "$ref": "#\/definitions\/Consumer-consumer:item:read"
+                            "$ref": "#/definitions/Consumer-consumer_item--read"
                         }
                     },
                     "400": {
@@ -209,31 +216,31 @@
                 }
             }
         },
-        "\/api\/consumers\/{id}": {
+        "/api/consumers/{id}": {
             "get": {
                 "tags": [
-                    "\u7528\u6237"
+                    "用户"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u7528\u6237\u6570\u636e",
-                "description": "\u7528\u6237\u8be6\u60c5",
+                "summary": "查询对应id的用户数据",
+                "description": "用户详情",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u7528\u6237id"
+                        "description": "用户id"
                     }
                 ],
                 "operationId": "getConsumerItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Consumer resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Consumer-consumer:item:read"
+                            "$ref": "#/definitions/Consumer-consumer_item--read"
                         }
                     },
                     "404": {
@@ -243,31 +250,31 @@
             },
             "put": {
                 "tags": [
-                    "\u7528\u6237"
+                    "用户"
                 ],
-                "summary": "\u4fee\u6539\u7528\u6237\u57fa\u672c\u4fe1\u606f",
-                "description": "\u4fee\u6539\u7528\u6237\u4fe1\u606f",
+                "summary": "修改用户基本信息",
+                "description": "修改用户信息",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u7528\u6237id"
+                        "description": "用户id"
                     }
                 ],
                 "operationId": "putConsumerItem",
                 "consumes": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Consumer resource updated",
                         "schema": {
-                            "$ref": "#\/definitions\/Consumer-consumer:item:write"
+                            "$ref": "#/definitions/Consumer-consumer_item--write"
                         }
                     },
                     "400": {
@@ -279,31 +286,31 @@
                 }
             }
         },
-        "\/api\/consumers\/{id}\/member": {
+        "/api/consumers/{id}/member": {
             "get": {
                 "tags": [
-                    "\u7528\u6237"
+                    "用户"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94\u7528\u6237id\u7684\u4f1a\u5458\u6570\u636e",
-                "description": "\u7528\u6237id\u4e0b\u7684\u4f1a\u5458\u4fe1\u606f",
+                "summary": "查询对应用户id的会员数据",
+                "description": "用户id下的会员信息",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u7528\u6237id"
+                        "description": "用户id"
                     }
                 ],
                 "operationId": "api_consumers_member_get_subresourceMemberItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Member resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Member-member:item:read"
+                            "$ref": "#/definitions/Member-member_item--read"
                         }
                     },
                     "404": {
@@ -312,20 +319,20 @@
                 }
             }
         },
-        "\/api\/consumers\/{id}\/receipt_infos": {
+        "/api/consumers/{id}/receipt_infos": {
             "get": {
                 "tags": [
-                    "\u7528\u6237"
+                    "用户"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94\u7528\u6237id\u7684\u6536\u8d27\u4fe1\u606f\u6570\u636e\u96c6",
-                "description": "\u7528\u6237id\u4e0b\u7684\u6536\u8d27\u4fe1\u606f\u5217\u8868",
+                "summary": "查询对应用户id的收货信息数据集",
+                "description": "用户id下的收货信息列表",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u7528\u6237id"
+                        "description": "用户id"
                     },
                     {
                         "name": "page",
@@ -337,7 +344,7 @@
                 ],
                 "operationId": "api_consumers_receipt_infos_get_subresourceReceiptInfoCollection",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -345,7 +352,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/ReceiptInfo-receipt_info:item:read"
+                                "$ref": "#/definitions/ReceiptInfo-receipt_info_item--read"
                             }
                         }
                     }
@@ -353,40 +360,38 @@
             },
             "post": {
                 "tags": [
-                    "\u7528\u6237"
+                    "用户"
                 ],
-                "summary": "\u521b\u5efa\u5bf9\u5e94\u7528\u6237\u65b0\u6536\u8d27\u4fe1\u606f",
-                "description": "\u521b\u5efa\u5bf9\u5e94\u7528\u6237\u6536\u8d27\u4fe1\u606f",
+                "summary": "创建对应用户新收货信息",
+                "description": "创建对应用户收货信息",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u7528\u6237id"
+                        "description": "用户id"
                     },
                     {
                         "name": "receiptInfo",
                         "in": "body",
                         "schema": {
-                            "$ref": "#\/definitions\/ReceiptInfo-receipt_info:item:write"
+                            "$ref": "#/definitions/ReceiptInfo-receipt_info_item--write"
                         }
                     }
                 ],
                 "operationId": "api_receipt_infos_api_consumers_receipt_infos_post_subresourceReceiptInfoCollection",
                 "consumes": [
-                    "application\/ld+json",
-                    "application\/json",
-                    "text\/html"
+                    "application/json"
                 ],
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "201": {
                         "description": "ReceiptInfo resource created",
                         "schema": {
-                            "$ref": "#\/definitions\/ReceiptInfo-receipt_info:item:read"
+                            "$ref": "#/definitions/ReceiptInfo-receipt_info_item--read"
                         }
                     },
                     "400": {
@@ -398,31 +403,31 @@
                 }
             }
         },
-        "\/api\/custom_pages\/{id}": {
+        "/api/custom_pages/{id}": {
             "get": {
                 "tags": [
-                    "\u81ea\u5b9a\u4e49\u9875\u9762"
+                    "自定义页面"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u81ea\u5b9a\u4e49\u9875\u9762\u6570\u636e",
-                "description": "\u81ea\u5b9a\u4e49\u9875\u9762\u8be6\u60c5",
+                "summary": "查询对应id的自定义页面数据",
+                "description": "自定义页面详情",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u81ea\u5b9a\u4e49\u9875\u9762id"
+                        "description": "自定义页面id"
                     }
                 ],
                 "operationId": "getCustomPageItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "CustomPage resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/CustomPage"
+                            "$ref": "#/definitions/CustomPage"
                         }
                     },
                     "404": {
@@ -431,61 +436,57 @@
                 }
             }
         },
-        "\/api\/goods": {
+        "/api/goods": {
             "get": {
                 "tags": [
-                    "\u5546\u54c1"
+                    "商品"
                 ],
-                "summary": "\u67e5\u8be2\u5546\u54c1\u6570\u636e\u96c6",
-                "description": "\u5546\u54c1\u5217\u8868",
+                "summary": "查询商品数据集",
+                "description": "商品列表",
                 "parameters": [
                     {
                         "name": "order[id]",
                         "in": "query",
                         "type": "string",
-                        "description": "\u6392\u5e8f\u5b57\u6bb5:\u53c2\u6570\u503c\u53ef\u586b\u4e3a\u5b57\u6bb5created_at\u3001market_price\u7b49"
+                        "description": "排序字段:参数值可填为字段created_at、market_price等"
                     },
                     {
                         "name": "order[name]",
                         "in": "query",
                         "type": "string",
-                        "description": "\u6392\u5e8f\u65b9\u5f0f:\u53c2\u6570\u503cid\u53ef\u586b\u4e3a\u5b57\u6bb5asc\u3001desc"
+                        "description": "排序方式:参数值id可填为字段asc、desc"
                     },
                     {
                         "name": "classify",
                         "in": "query",
                         "type": "string",
-                        "description": "\u5206\u7c7b\u8fc7\u6ee4:\u4f20\u5165\u5206\u7c7bid(\u51c6\u786e\u67e5\u627e)"
+                        "description": "分类过滤:传入分类id(准确查找)"
                     },
                     {
                         "name": "classify[]",
                         "in": "query",
-                        "type": "array[string]",
-                        "description": "\u591a\u4e2a\u5206\u7c7b\u8fc7\u6ee4:\u4f20\u5165\u5206\u7c7bid(\u51c6\u786e\u67e5\u627e)"
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "多个分类过滤:传入分类id(准确查找)"
                     },
                     {
                         "name": "name",
                         "in": "query",
                         "type": "string",
-                        "description": "\u5546\u54c1\u540d\u79f0\u8fc7\u6ee4:\u4f20\u5165\u5546\u54c1\u540d(\u6a21\u7cca\u67e5\u627e)"
+                        "description": "商品名称过滤:传入商品名(模糊查找)"
                     },
                     {
                         "name": "page",
                         "in": "query",
                         "type": "integer",
-                        "description": "\u5206\u9875\u9875\u6570"
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "type": "integer",
-                        "description": "数据集页数"
+                        "description": "分页页数"
                     }
                 ],
                 "operationId": "getGoodsCollection",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -493,38 +494,38 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Goods-goods:read"
+                                "$ref": "#/definitions/Goods-goods--read"
                             }
                         }
                     }
                 }
             }
         },
-        "\/api\/goods\/{id}": {
+        "/api/goods/{id}": {
             "get": {
                 "tags": [
-                    "\u5546\u54c1"
+                    "商品"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u5546\u54c1\u6570\u636e",
-                "description": "\u5546\u54c1\u8be6\u60c5",
+                "summary": "查询对应id的商品数据",
+                "description": "商品详情",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u5546\u54c1id"
+                        "description": "商品id"
                     }
                 ],
                 "operationId": "getGoodsItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Goods resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Goods-goods:item:read"
+                            "$ref": "#/definitions/Goods-goods_item--read"
                         }
                     },
                     "404": {
@@ -533,31 +534,31 @@
                 }
             }
         },
-        "\/api\/marketings\/{id}": {
+        "/api/marketings/{id}": {
             "get": {
                 "tags": [
-                    "\u4f1a\u5458"
+                    "会员"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u4f1a\u5458\u7c7b\u578b\u6570\u636e",
-                "description": "\u5bf9\u5e94id\u7684\u4f1a\u5458\u7c7b\u578b\u8be6\u60c5",
+                "summary": "查询对应id的会员类型数据",
+                "description": "对应id的会员类型详情",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u4f1a\u5458\u7c7b\u578bid"
+                        "description": "会员类型id"
                     }
                 ],
                 "operationId": "getMarketingItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Marketing resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Marketing-market:read"
+                            "$ref": "#/definitions/Marketing-market--read"
                         }
                     },
                     "404": {
@@ -566,31 +567,31 @@
                 }
             }
         },
-        "\/api\/members\/{id}": {
+        "/api/members/{id}": {
             "get": {
                 "tags": [
-                    "\u4f1a\u5458"
+                    "会员"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u4f1a\u5458\u6570\u636e",
-                "description": "\u5bf9\u5e94id\u7684\u4f1a\u5458\u4fe1\u606f\u8be6\u60c5",
+                "summary": "查询对应id的会员数据",
+                "description": "对应id的会员信息详情",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u4f1a\u5458id"
+                        "description": "会员id"
                     }
                 ],
                 "operationId": "getMemberItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Member resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Member-member:item:read"
+                            "$ref": "#/definitions/Member-member_item--read"
                         }
                     },
                     "404": {
@@ -599,31 +600,31 @@
                 }
             }
         },
-        "\/api\/receipt_infos\/{id}": {
+        "/api/receipt_infos/{id}": {
             "get": {
                 "tags": [
-                    "\u6536\u8d27\u4fe1\u606f"
+                    "收货信息"
                 ],
-                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u6536\u8d27\u4fe1\u606f\u6570\u636e",
-                "description": "\u5bf9\u5e94id\u7684\u6536\u8d27\u4fe1\u606f",
+                "summary": "查询对应id的收货信息数据",
+                "description": "对应id的收货信息",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "\u4f1a\u5458id"
+                        "description": "会员id"
                     }
                 ],
                 "operationId": "getReceiptInfoItem",
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "ReceiptInfo resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/ReceiptInfo-receipt_info:item:read"
+                            "$ref": "#/definitions/ReceiptInfo-receipt_info_item--read"
                         }
                     },
                     "404": {
@@ -633,16 +634,16 @@
             },
             "put": {
                 "tags": [
-                    "\u6536\u8d27\u4fe1\u606f"
+                    "收货信息"
                 ],
-                "summary": "\u4fee\u6539\u5bf9\u5e94\u7528\u6237id\u7684\u6536\u8d27\u4fe1\u606f\u6570\u636e",
-                "description": "\u4fee\u6539\u7528\u6237id\u4e0b\u7684\u6536\u8d27\u4fe1\u606f",
+                "summary": "修改对应用户id的收货信息数据",
+                "description": "修改用户id下的收货信息",
                 "operationId": "putReceiptInfoItem",
                 "consumes": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "produces": [
-                    "application\/json"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -656,7 +657,7 @@
                         "in": "body",
                         "description": "The updated ReceiptInfo resource",
                         "schema": {
-                            "$ref": "#\/definitions\/ReceiptInfo-receipt_info:item:write"
+                            "$ref": "#/definitions/ReceiptInfo-receipt_info_item--write"
                         }
                     }
                 ],
@@ -664,7 +665,7 @@
                     "200": {
                         "description": "ReceiptInfo resource updated",
                         "schema": {
-                            "$ref": "#\/definitions\/ReceiptInfo-receipt_info:item:read"
+                            "$ref": "#/definitions/ReceiptInfo-receipt_info_item--read"
                         }
                     },
                     "400": {
@@ -677,10 +678,10 @@
             },
             "delete": {
                 "tags": [
-                    "\u6536\u8d27\u4fe1\u606f"
+                    "收货信息"
                 ],
-                "summary": "\u5220\u9664\u5bf9\u5e94\u7528\u6237id\u7684\u6536\u8d27\u4fe1\u606f\u6570\u636e",
-                "description": "\u5220\u9664\u7528\u6237id\u4e0b\u7684\u6536\u8d27\u4fe1\u606f",
+                "summary": "删除对应用户id的收货信息数据",
+                "description": "删除用户id下的收货信息",
                 "operationId": "deleteReceiptInfoItem",
                 "responses": {
                     "204": {
@@ -702,17 +703,17 @@
         }
     },
     "definitions": {
-        "Banner-banner:read": {
+        "Banner-banner--read": {
             "type": "object",
-            "description": "\u8f6e\u6362\u56fe",
+            "description": "轮换图",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
+                    "description": "图片地址",
                     "type": "string"
                 },
                 "type": {
@@ -720,38 +721,38 @@
                         "LK",
                         "GD"
                     ],
-                    "description": "- LK: \u94fe\u63a5\n- GD: \u5546\u54c1\n",
+                    "description": "类型\n- LK: 链接\n- GD: 商品\n",
                     "type": "string"
                 },
                 "link": {
-                    "description": "\u94fe\u63a5",
+                    "description": "链接",
                     "type": "string"
                 },
                 "goods": {
-                    "description": "\u5546\u54c1",
-                    "$ref": "#\/definitions\/Goods-banner:read"
+                    "description": "商品",
+                    "$ref": "#/definitions/Goods-banner--read"
                 }
             }
         },
-        "Classify-classify:read": {
+        "Classify-classify--read": {
             "type": "object",
-            "description": "\u5206\u7c7b",
+            "description": "分类",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u540d\u79f0",
+                    "description": "名称",
                     "type": "string"
                 },
                 "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
+                    "description": "图片地址",
                     "type": "string"
                 },
                 "goods": {
-                    "description": "\u5546\u54c1\u5217\u8868",
+                    "description": "商品列表",
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -759,87 +760,91 @@
                 }
             }
         },
-        "Classify-goods:item:read": {
+        "Classify-goods_item--read": {
             "type": "object",
-            "description": "\u5206\u7c7b",
+            "description": "分类",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u540d\u79f0",
+                    "description": "名称",
                     "type": "string"
                 },
                 "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
+                    "description": "图片地址",
                     "type": "string"
                 }
             }
         },
-        "Classify-goods:read": {
+        "Classify-goods--read": {
             "type": "object",
-            "description": "\u5206\u7c7b",
+            "description": "分类",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u540d\u79f0",
+                    "description": "名称",
                     "type": "string"
                 },
                 "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
+                    "description": "图片地址",
                     "type": "string"
                 }
             }
         },
-        "Consumer-consumer:item:read": {
+        "Consumer-consumer_item--read": {
             "type": "object",
-            "description": "\u7528\u6237",
+            "description": "用户",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
+                    "description": "图片地址",
                     "type": "string"
                 },
                 "sex": {
-                    "description": "\u6027\u522b",
+                    "enum": [
+                        "nan",
+                        "nv"
+                    ],
+                    "description": "性别\n- nan: 男\n- nv: 女\n",
                     "type": "string"
                 },
                 "member": {
-                    "description": "\u4f1a\u5458",
+                    "description": "会员",
                     "readOnly": true,
-                    "$ref": "#\/definitions\/Member-consumer:item:read"
+                    "$ref": "#/definitions/Member-consumer_item--read"
                 },
                 "nickName": {
-                    "description": "\u6635\u79f0",
+                    "description": "昵称",
                     "readOnly": true,
                     "type": "string"
                 }
             }
         },
-        "Consumer-consumer:item:write": {
+        "Consumer-consumer_item--write": {
             "type": "object",
-            "description": "\u7528\u6237",
+            "description": "用户",
             "properties": {
                 "image": {
-                    "description": "\u56fe\u7247\u5730\u5740",
+                    "description": "图片地址",
                     "type": "string"
                 },
                 "sex": {
-                    "description": "\u6027\u522b",
+                    "description": "性别",
                     "type": "string"
                 },
                 "nickName": {
-                    "description": "\u6635\u79f0",
+                    "description": "昵称",
                     "readOnly": true,
                     "type": "string"
                 }
@@ -847,7 +852,7 @@
         },
         "CustomPage": {
             "type": "object",
-            "description": "\u81ea\u5b9a\u4e49\u9875\u9762",
+            "description": "自定义页面",
             "properties": {
                 "id": {
                     "readOnly": true,
@@ -870,325 +875,330 @@
                 }
             }
         },
-        "Goods-banner:read": {
+        "Goods-banner--read": {
             "type": "object",
-            "description": "\u5546\u54c1",
+            "description": "商品",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 }
             }
         },
-        "Goods-goods:item:read": {
+        "Goods-goods_item--read": {
             "type": "object",
-            "description": "\u5546\u54c1",
+            "description": "商品",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u5546\u54c1\u540d\u79f0",
+                    "description": "商品名称",
                     "type": "string"
                 },
                 "stock": {
-                    "description": "\u5546\u54c1\u5e93\u5b58",
+                    "description": "商品库存",
                     "type": "integer"
                 },
                 "image": {
-                    "description": "\u4e3b\u56fe\u7247",
+                    "description": "主图片",
                     "type": "string"
                 },
                 "classify": {
-                    "description": "\u5206\u7c7b",
+                    "description": "分类",
                     "type": "array",
                     "items": {
-                        "$ref": "#\/definitions\/Classify-goods:item:read"
+                        "$ref": "#/definitions/Classify-goods_item--read"
                     }
                 },
                 "describes": {
-                    "description": "\u63cf\u8ff0",
+                    "description": "描述",
                     "type": "string"
                 },
                 "details": {
-                    "description": "\u8be6\u60c5",
+                    "description": "详情",
                     "type": "string"
                 },
                 "pictures": {
-                    "description": "\u8f6e\u6362\u56fe",
+                    "description": "轮换图",
                     "type": "array",
                     "items": {
                         "type": "string"
                     }
                 },
                 "marketPrice": {
-                    "description": "\u5e02\u573a\u4ef7",
+                    "description": "市场价",
                     "type": "number"
                 },
                 "depositPrice": {
-                    "description": "\u62bc\u91d1\u4ef7",
+                    "description": "押金价",
                     "type": "number"
                 },
                 "longSize": {
-                    "description": "\u957f",
+                    "description": "长",
                     "type": "integer"
                 },
                 "wideSize": {
-                    "description": "\u5bbd",
+                    "description": "宽",
                     "type": "integer"
                 }
             }
         },
-        "Goods-goods:read": {
+        "Goods-goods--read": {
             "type": "object",
-            "description": "\u5546\u54c1",
+            "description": "商品",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u5546\u54c1\u540d\u79f0",
+                    "description": "商品名称",
                     "type": "string"
                 },
                 "stock": {
-                    "description": "\u5546\u54c1\u5e93\u5b58",
+                    "description": "商品库存",
                     "type": "integer"
                 },
                 "image": {
-                    "description": "\u4e3b\u56fe\u7247",
+                    "description": "主图片",
                     "type": "string"
                 },
                 "classify": {
-                    "description": "\u5206\u7c7b",
+                    "description": "分类",
                     "type": "array",
                     "items": {
-                        "$ref": "#\/definitions\/Classify-goods:read"
+                        "$ref": "#/definitions/Classify-goods--read"
                     }
                 },
                 "describes": {
-                    "description": "\u63cf\u8ff0",
+                    "description": "描述",
                     "type": "string"
                 },
-                 "marketPrice": {
-                    "description": "\u5e02\u573a\u4ef7",
+                "marketPrice": {
+                    "description": "市场价",
                     "type": "number"
                 },
                 "depositPrice": {
-                    "description": "\u62bc\u91d1\u4ef7",
+                    "description": "押金价",
                     "type": "number"
                 },
                 "longSize": {
-                    "description": "\u957f",
+                    "description": "长",
                     "type": "integer"
                 },
                 "wideSize": {
-                    "description": "\u5bbd",
+                    "description": "宽",
                     "type": "integer"
                 }
             }
         },
-        "Marketing-consumer:item:read": {
+        "Marketing-consumer_item--read": {
             "type": "object",
-            "description": "\u4f1a\u5458\u7c7b\u578b",
+            "description": "会员类型",
             "properties": {
                 "id": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b\u7f16\u53f7",
+                    "description": "会员类型编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b\u540d\u79f0",
+                    "description": "会员类型名称",
                     "type": "string"
                 }
             }
         },
-        "Marketing-market:read": {
+        "Marketing-market--read": {
             "type": "object",
-            "description": "\u4f1a\u5458\u7c7b\u578b",
+            "description": "会员类型",
             "properties": {
                 "id": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b\u7f16\u53f7",
+                    "description": "会员类型编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b\u540d\u79f0",
+                    "description": "会员类型名称",
                     "type": "string"
                 },
                 "explainText": {
-                    "description": "\u8bf4\u660e",
+                    "description": "说明",
                     "readOnly": true,
                     "type": "string"
                 },
                 "originalPrice": {
-                    "description": "\u539f\u4ef7",
+                    "description": "原价",
                     "readOnly": true,
                     "type": "number"
                 },
                 "discount": {
-                    "description": "\u6298\u6263",
+                    "description": "折扣",
                     "type": "number"
                 },
                 "validityDate": {
-                    "description": "\u8fc7\u671f\u65f6\u95f4",
+                    "description": "过期时间",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "createdAt": {
-                    "description": "\u521b\u5efa\u65f6\u95f4",
+                    "description": "创建时间",
                     "readOnly": true,
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedAt": {
-                    "description": "\u521b\u5efa\u65f6\u95f4",
+                    "description": "创建时间",
                     "readOnly": true,
                     "type": "string",
                     "format": "date-time"
                 }
             }
         },
-        "Marketing-member:item:read": {
+        "Marketing-member_item--read": {
             "type": "object",
-            "description": "\u4f1a\u5458\u7c7b\u578b",
+            "description": "会员类型",
             "properties": {
                 "id": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b\u7f16\u53f7",
+                    "description": "会员类型编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b\u540d\u79f0",
+                    "description": "会员类型名称",
                     "type": "string"
                 }
             }
         },
-        "Member-consumer:item:read": {
+        "Member-consumer_item--read": {
             "type": "object",
-            "description": "\u4f1a\u5458\u4fe1\u606f",
+            "description": "会员信息",
             "properties": {
                 "id": {
-                    "description": "\u4f1a\u5458\u7f16\u53f7",
+                    "description": "会员编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "market": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b",
-                    "$ref": "#\/definitions\/Marketing-consumer:item:read"
+                    "description": "会员类型",
+                    "$ref": "#/definitions/Marketing-consumer_item--read"
                 },
                 "rechargeAt": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "expireAt": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date-time"
                 }
             }
         },
-        "Member-member:item:read": {
+        "Member-member_item--read": {
             "type": "object",
-            "description": "\u4f1a\u5458\u4fe1\u606f",
+            "description": "会员信息",
             "properties": {
                 "id": {
-                    "description": "\u4f1a\u5458\u7f16\u53f7",
+                    "description": "会员编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "market": {
-                    "description": "\u4f1a\u5458\u7c7b\u578b",
-                    "$ref": "#\/definitions\/Marketing-member:item:read"
+                    "description": "会员类型",
+                    "$ref": "#/definitions/Marketing-member_item--read"
                 },
                 "rechargeAt": {
-                    "description": "\u4f1a\u5458\u5145\u503c\u65f6\u95f4",
-                    "type": "string"
+                    "description": "会员充值时间",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "expireAt": {
-                    "description": "\u4f1a\u5458\u5230\u671f\u65f6\u95f4",
-                    "type": "string"
+                    "description": "会员到期时间",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "createdAt": {
-                    "description": "\u521b\u5efa\u65f6\u95f4",
-                    "type": "string"
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
                 }
             }
         },
-        "ReceiptInfo-receipt_info:item:read": {
+        "ReceiptInfo-receipt_info_item--read": {
             "type": "object",
-            "description": "\u6536\u8d27\u4fe1\u606f",
+            "description": "收货信息",
             "properties": {
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u6536\u8d27\u4eba\u59d3\u540d",
+                    "description": "收货人姓名",
                     "type": "string"
                 },
                 "contact": {
-                    "description": "\u8054\u7cfb\u7535\u8bdd",
+                    "description": "联系电话",
                     "type": "string"
                 },
                 "province": {
-                    "description": "\u7701",
+                    "description": "省",
                     "type": "string"
                 },
                 "city": {
-                    "description": "\u5e02",
+                    "description": "市",
                     "type": "string"
                 },
                 "district": {
-                    "description": "\u533a",
+                    "description": "区",
                     "type": "string"
                 },
                 "detailedAddress": {
-                    "description": "\u8be6\u7ec6\u5730\u5740",
-                    "readOnly": true,
+                    "description": "详细地址",
                     "type": "string"
                 },
                 "remark": {
-                    "description": "\u5907\u6ce8",
+                    "description": "备注",
                     "type": "string"
                 }
             }
         },
-        "ReceiptInfo-receipt_info:item:write": {
+        "ReceiptInfo-receipt_info_item--write": {
             "type": "object",
-            "description": "\u6536\u8d27\u4fe1\u606f",
+            "description": "收货信息",
             "properties": {
                 "name": {
-                    "description": "\u6536\u8d27\u4eba\u59d3\u540d",
+                    "description": "收货人姓名",
                     "type": "string"
                 },
                 "contact": {
-                    "description": "\u8054\u7cfb\u7535\u8bdd",
+                    "description": "联系电话",
                     "type": "string"
                 },
                 "province": {
-                    "description": "\u7701",
+                    "description": "省",
                     "type": "string"
                 },
                 "city": {
-                    "description": "\u5e02",
+                    "description": "市",
                     "type": "string"
                 },
                 "district": {
-                    "description": "\u533a",
+                    "description": "区",
                     "type": "string"
                 },
                 "remark": {
-                    "description": "\u5907\u6ce8",
+                    "description": "备注",
                     "type": "string"
                 },
                 "detailedAddress": {
+                    "description": "详细地址",
                     "type": "string"
                 },
                 "id": {
-                    "description": "\u7f16\u53f7",
+                    "description": "编号",
                     "readOnly": true,
                     "type": "integer"
                 }
